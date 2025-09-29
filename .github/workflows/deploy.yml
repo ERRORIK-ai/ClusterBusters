@@ -10,17 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-    - name: Install MkDocs and Simple Blog Theme
-      run: |
-        pip install mkdocs mkdocs-simple-blog
+      - name: Install MkDocs and Simple Blog Theme
+        run: |
+          pip install mkdocs mkdocs-simple-blog
 
-    - name: Build and Deploy to GitHub Pages
-      run: mkdocs gh-deploy --force
+      - name: Build and Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --config-file my-journey/mkdocs.yml --force
