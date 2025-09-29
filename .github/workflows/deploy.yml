@@ -2,24 +2,29 @@ name: Deploy MkDocs Site
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
 
-      - name: Install MkDocs and Simple Blog Theme
-        run: |
-          pip install mkdocs mkdocs-simple-blog
+    - run: pip install mkdocs mkdocs-simple-blog
 
-      - name: Build MkDocs site
-        run: |
-          mkdocs gh-deploy --config-file my-journey/mkdocs.yml --force
+    - name: Build MkDocs site
+      run: mkdocs build --config-file my-journey/mkdocs.yml
+
+    - name: Upload site artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: my-journey/site
+
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v1
