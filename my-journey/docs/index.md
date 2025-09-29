@@ -12,3 +12,4 @@ _Here I am going to document my experiences (challenges as well as successes) in
 - **Terraform**: provider configurations, credentials, and cluster definitions.
 - **Civo Setup**: account creation, CLI configuration, and cluster provisioning.
 - **Deployment**: applying Terraform, verifying resources, and next steps.
+
