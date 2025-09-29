@@ -1,0 +1,11 @@
+site_name: My Kubernetes Journey
+site_url: https://ERRORIK-ai.github.io/ClusterBusters/
+theme:
+  name: simple-blog
+nav:
+  - Home: index.md
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
