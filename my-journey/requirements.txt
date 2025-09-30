@@ -132,3 +132,7 @@ watchdog==3.0.0
     # via
     #   hatch.envs.docs
     #   mkdocs
+
+# Themes
+# - mkdocs-material
+mkdocs-simple-blog
