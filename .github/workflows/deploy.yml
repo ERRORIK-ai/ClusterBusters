@@ -2,6 +2,8 @@ name: Build and Deploy MkDocs (gh-pages push)
 
 on:
   push:
+    branches:
+      - main
 
 permissions:
   contents: write
