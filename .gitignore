@@ -1,2 +1,5 @@
 credentials.auto.tfvars
 /planning
+/.terraform
+.terraform.lock.hcl
+.provider_schema.json

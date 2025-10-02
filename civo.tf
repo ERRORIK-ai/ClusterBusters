@@ -1,6 +1,6 @@
 # Kubernetes Cluster
 
-data "civo_size" "xmall" {
+data "civo_size" "xsmall" {
     filter {
         key = "name"
         values = ["g4s.kube.xsmall"]
@@ -23,40 +23,30 @@ resource "civo_kubernetes_cluster" "k8s_demo_1" {
 
 resource "civo_firewall" "fw_demo_1" {
     name = "fw_demo_1"
-
     create_default_rules = false # Dont allow traffic from every ip over all ports
-    
-}
 
-resource "civo_firewall_rule" "kubernetes_http" {
-    firewall_id = civo_firewall.fw_demo_1.id
-    protocol = "tcp"
-    start_port = "80"
-    end_port = "80"
-    cidr = ["0.0.0.0/0"]
-    direction = "ingress"
-    action = "allow"
-    label = "kubernetes_http"
-}
+    ingress_rule {
+        action     = "allow"
+        cidr       = ["0.0.0.0/0"]
+        protocol   = "tcp"
+        port_range = "80"
+        label      = "kubernetes_http"
+    }
 
-resource "civo_firewall_rule" "kubernetes_https" {
-    firewall_id = civo_firewall.fw_demo_1.id
-    protocol = "tcp"
-    start_port = "443"
-    end_port = "443"
-    cidr = ["0.0.0.0/0"]
-    direction = "ingress"
-    action = "allow"
-    label = "kubernetes_https"
-}
+    ingress_rule {
+        action     = "allow"
+        cidr       = ["0.0.0.0/0"]
+        protocol   = "tcp"
+        port_range = "443"
+        label      = "kubernetes_https"
+    }
 
-resource "civo_firewall_rule" "kubernetes_api" {
-    firewall_id = civo_firewall.fw_demo_1.id
-    protocol = "tcp"
-    start_port = "6443"
-    end_port = "6443"
-    cidr = ["0.0.0.0/0"] # Not secure, I know... But without the necessary certificates, nobody can access the API anyway.
-    direction = "ingress"
-    action = "allow"
-    label = "kubernetes_api"
+    ingress_rule {
+        action     = "allow"
+        cidr       = ["0.0.0.0/0"]
+        protocol   = "tcp"
+        port_range = "6443"
+        label      = "kubernetes_api"
+    }
+
 }
